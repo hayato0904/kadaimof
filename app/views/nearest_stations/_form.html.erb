@@ -1,0 +1,32 @@
+<%= form_with(model: nearest_station, local: true) do |form| %>
+  <% if nearest_station.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(nearest_station.errors.count, "error") %> prohibited this nearest_station from being saved:</h2>
+
+      <ul>
+      <% nearest_station.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :route_name %>
+    <%= form.text_field :route_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :station_name %>
+    <%= form.text_field :station_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time %>
+    <%= form.number_field :time %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

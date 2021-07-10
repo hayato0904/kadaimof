@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  property_name: MyString
+  address: MyString
+  age: 1
+  note: MyText
+
+two:
+  property_name: MyString
+  address: MyString
+  age: 1
+  note: MyText
