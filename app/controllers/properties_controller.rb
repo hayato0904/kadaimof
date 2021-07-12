@@ -1,26 +1,28 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: %i[ show edit update destroy ]
 
-  # GET /properties or /properties.json
   def index
     @properties = Property.all
   end
 
-  # GET /properties/1 or /properties/1.json
   def show
+    # .nearest_stationsはアソシエーションメソッドという。@propertyに . でつけることにより保存できるようになる？
+    @nearest_stations = @property.nearest_stations
+
   end
 
-  # GET /properties/new
   def new
     @property = Property.new
+     #buildメソッドを使用し、propertyモデルに属するnearest_stationモデルのインスタンスを新たに生成する。新規登録の時点で２駅保存できる
+     2.times { @property.nearest_stations.build }
   end
 
-  # GET /properties/1/edit
   def edit
+    @property.nearest_stations.build
   end
 
-  # POST /properties or /properties.json
   def create
+    #paramsメソッドを使用し、送られてきたparameterを全て取得。モデルにDB操作の命令を出す。
     @property = Property.new(property_params)
 
     respond_to do |format|
@@ -34,7 +36,6 @@ class PropertiesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /properties/1 or /properties/1.json
   def update
     respond_to do |format|
       if @property.update(property_params)
@@ -47,7 +48,6 @@ class PropertiesController < ApplicationController
     end
   end
 
-  # DELETE /properties/1 or /properties/1.json
   def destroy
     @property.destroy
     respond_to do |format|
@@ -57,13 +57,15 @@ class PropertiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_property
       @property = Property.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def property_params
-      params.require(:property).permit(:property_name, :address, :age, :note)
+      params.require(:property).permit(:property_name, :address, :age, :note,
+        nearest_stations_attributes: [:id, :route_name, :station_name, :time])
     end
+
 end
