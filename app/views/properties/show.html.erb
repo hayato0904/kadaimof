@@ -20,5 +20,28 @@
   <%= @property.note %>
 </p>
 
+ <% number = 0 %>
+<% @nearest_stations.each do |n| %>
+  <% if @property.nearest_stations.any? %>
+    <h2>最寄り駅<%= number += 1 %></h2>
+    <p>
+      <strong>Route_name:</strong>
+      <%= n.route_name %>
+    </p>
+
+    <p>
+      <strong>Station_name:</strong>
+      <%= n.station_name %>
+    </p>
+
+    <p>
+      <strong>Time:</strong>
+      <%= n.time %>
+    </p>
+
+  <% end %>
+<% end %>
+
+<%# 下記一行をshowに移動できるように記載した。 %>
 <%= link_to 'Edit', edit_property_path(@property) %> |
 <%= link_to 'Back', properties_path %>

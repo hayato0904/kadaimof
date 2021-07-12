@@ -31,6 +31,26 @@
     <%= form.text_area :note %>
   </div>
 
+  <% number = 0 %>
+  <%= form.fields_for :nearest_stations do |f| %>
+  <h2>最寄り駅<%= number += 1 %></h2>
+    <div class="field">
+      <%= f.label :route_name %>
+      <%= f.text_field :route_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :station_name %>
+      <%= f.text_field :station_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :time %>
+      <%= f.text_field :time %>
+    </div>
+
+  <% end %>
+
   <div class="actions">
     <%= form.submit %>
   </div>
